@@ -64,6 +64,10 @@ public class PartidaDiariaDetalle implements Serializable {
         this.idTipoSaldo=new TipoSaldo(DTO.tipoSaldoDTO());
         this.idTransaccion=new Transaccion(DTO.transacionDto());
     }
+    public PartidaDetalleDto toDto() {
+        return new PartidaDetalleDto(this);
+    }
+
 
     public PartidaDiariaDetalle(Integer idPartidaDetalle) {
         this.idPartidaDetalle = idPartidaDetalle;

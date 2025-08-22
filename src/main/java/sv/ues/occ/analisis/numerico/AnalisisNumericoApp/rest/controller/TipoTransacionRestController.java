@@ -1,6 +1,5 @@
 package sv.ues.occ.analisis.numerico.AnalisisNumericoApp.rest.controller;
 
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +14,15 @@ import java.util.Map;
 @RequestMapping("/tipoTransaccion")
 public class TipoTransacionRestController {
     @Autowired
-    TipoTransacionController tipoTransacionController;
+    TipoTransacionController controler;
     @GetMapping
     public ResponseEntity<List<TipoTransacionDto>> getTipoTransacion() {
-        List<TipoTransacionDto> list = tipoTransacionController.findAll()
+        List<TipoTransacionDto> list = controler.findAll()
                 .stream()
-                .map(TipoTransacionDto::new)
+                .map(TipoTransaccion::toDto)
                 .toList();
 
-        long count = tipoTransacionController.count();
+        long count = controler.count();
 
         return ResponseEntity.ok()
                 .header(HeadersAnalisisNumerico.TOTA_RECORS, String.valueOf(count))
@@ -35,18 +34,18 @@ public class TipoTransacionRestController {
         System.out.println(dto.toString());
         TipoTransaccion entity = new TipoTransaccion(dto);
 
-        TipoTransaccion saved = tipoTransacionController.save(entity);
-        return ResponseEntity.ok(new TipoTransacionDto(saved));
+        TipoTransaccion saved = controler.save(entity);
+        return ResponseEntity.ok(saved.toDto());
     }
 
     // PUT: actualizar nombre por id
     @PutMapping("/{id}")
     public ResponseEntity<TipoTransacionDto> update(@PathVariable Integer id, @RequestBody Map<String, String> request) {
-        return tipoTransacionController.findById(id)
+        return controler.findById(id)
                 .map(entity -> {
                     entity.setNombre(request.get("nombre"));
-                    TipoTransaccion updated = tipoTransacionController.save(entity);
-                    return ResponseEntity.ok(new TipoTransacionDto(updated));
+                    TipoTransaccion updated = controler.save(entity);
+                    return ResponseEntity.ok(updated.toDto());
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -54,8 +53,8 @@ public class TipoTransacionRestController {
     // DELETE: eliminar por id
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        if (tipoTransacionController.existsById(id)) {
-            tipoTransacionController.deleteById(id);
+        if (controler.existsById(id)) {
+            controler.deleteById(id);
             return ResponseEntity.noContent().build(); // 204 sin body
         } else {
             return ResponseEntity.notFound().build(); // 404

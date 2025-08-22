@@ -54,6 +54,9 @@ public class TipoTransaccion implements Serializable {
         this.idTipoTransaccion = DTO.idTipoTransacion();
         this.nombre = DTO.nombre();
     }
+    public TipoTransacionDto toDto() {
+        return new TipoTransacionDto(this);
+    }
 
     public TipoTransaccion(Integer idTipoTransaccion) {
         this.idTipoTransaccion = idTipoTransaccion;

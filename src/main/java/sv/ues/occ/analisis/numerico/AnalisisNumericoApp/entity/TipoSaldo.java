@@ -55,6 +55,9 @@ public TipoSaldo(TipoSaldoDTO DTO) {
         this.nombre = DTO.nombre();
 
 }
+    public TipoSaldoDTO toDto() {
+        return new TipoSaldoDTO(this);
+    }
 
     public TipoSaldo(Integer idTipoSaldo) {
         this.idTipoSaldo = idTipoSaldo;

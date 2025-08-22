@@ -12,13 +12,12 @@ public interface CuentasContablesController extends JpaRepository<CuentaContable
     public List<CuentaContable> findAll();
 
     public CuentaContable findByCodigo(String codigo);
-
+    
     public List<CuentaContableDto> findByNombreContainsIgnoreCase(String nombre);
 
     public long count();
 
     @Query(value = "select c from CuentaContable c where c.idPadre.idCuentaContable=:idPadre")
     List<CuentaContable> getDecendientes(@Param("idPadre") Integer idPadre);
-
 
 }
