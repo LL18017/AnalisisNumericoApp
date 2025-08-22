@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mayo" columnCount="3" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c177787-688b-4aeb-a927-1db6bff71a0a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT c.*
+FROM cuenta_contable c
+JOIN cuenta_contable p ON c.id_padre = p.id_cuenta_contable
+JOIN cuenta_contable gp ON p.id_padre = gp.id_cuenta_contable
+WHERE gp.id_padre IS NULL order by codigo]]>
+	</queryString>
+	<field name="id_cuenta_contable" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_cuenta_contable"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_cuenta_contable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cuenta_contable"/>
+	</field>
+	<field name="codigo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="codigo"/>
+		<property name="com.jaspersoft.studio.field.label" value="codigo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cuenta_contable"/>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cuenta_contable"/>
+	</field>
+	<field name="id_padre" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_padre"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_padre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cuenta_contable"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="230" y="10" width="100" height="30" uuid="65e579c2-6ac2-4c4a-912e-3c399e20618b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Mayorizacion"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<line>
+				<reportElement x="10" y="59" width="140" height="1" uuid="942bd849-2aee-449f-a3f0-b81dcd32af0b"/>
+			</line>
+			<textField>
+				<reportElement x="20" y="59" width="56" height="19" uuid="7ef6bcb4-a0a0-4fa4-b600-31f7b9c20ade"/>
+				<textFieldExpression><![CDATA["Debe"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="80" y="60" width="1" height="54" uuid="0e8bd338-f8e9-4697-98e7-f0ac1dd8574f"/>
+			</line>
+			<textField>
+				<reportElement x="90" y="60" width="56" height="19" uuid="640de84c-cbaa-4766-8c14-c6d0d8ecc3df"/>
+				<textFieldExpression><![CDATA["Haber"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="79" width="140" height="1" uuid="e07afa0d-695c-4d4e-9dcc-a3e5fff455f6"/>
+			</line>
+			<textField>
+				<reportElement x="60" y="30" width="81" height="30" uuid="d7f1aee2-9cdc-40fb-b724-b707191ddfce"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="30" width="50" height="30" uuid="43b6870d-7741-4f26-baac-6c2db36d6352"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
