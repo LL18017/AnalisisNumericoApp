@@ -37,12 +37,6 @@ import java.util.List;
     @NamedQuery(name = "CuentaContable.findByNombre", query = "SELECT c FROM CuentaContable c WHERE c.nombre = :nombre")})
 public class CuentaContable implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_cuenta_contable")
-    private Integer idCuentaContable;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -53,6 +47,15 @@ public class CuentaContable implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "nombre")
     private String nombre;
+    @OneToMany(mappedBy = "idCuentaContable")
+    private List<Registro> registroList;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id_cuenta_contable")
+    private Integer idCuentaContable;
     @OneToMany(mappedBy = "idPadre")
     private List<CuentaContable> cuentaContableList;
     @JoinColumn(name = "id_padre", referencedColumnName = "id_cuenta_contable")
@@ -87,21 +90,6 @@ public class CuentaContable implements Serializable {
         this.idCuentaContable = idCuentaContable;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public List<CuentaContable> getCuentaContableList() {
         return cuentaContableList;
@@ -154,6 +142,30 @@ public class CuentaContable implements Serializable {
 
     public CuentaContableDto toDto() {
         return new CuentaContableDto(this);
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Registro> getRegistroList() {
+        return registroList;
+    }
+
+    public void setRegistroList(List<Registro> registroList) {
+        this.registroList = registroList;
     }
     
 }

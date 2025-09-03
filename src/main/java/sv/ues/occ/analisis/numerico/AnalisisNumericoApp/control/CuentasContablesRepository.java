@@ -8,12 +8,14 @@ import sv.ues.occ.analisis.numerico.AnalisisNumericoApp.rest.dtos.CuentaContable
 
 import java.util.List;
 
-public interface CuentasContablesController extends JpaRepository<CuentaContable,Integer> {
+public interface CuentasContablesRepository extends JpaRepository<CuentaContable,Integer> {
     public List<CuentaContable> findAll();
 
     public CuentaContable findByCodigo(String codigo);
     
     public List<CuentaContableDto> findByNombreContainsIgnoreCase(String nombre);
+
+
 
     public long count();
 

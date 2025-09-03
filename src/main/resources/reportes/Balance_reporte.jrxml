@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Balance_reporte" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89744f40-40a6-4aa3-9ee0-ad9238e402a9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<parameter name="DESDE" class="java.sql.Date"/>
+	<parameter name="HASTA" class="java.sql.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT c.id_cuenta_contable, c.nombre
+FROM cuenta_contable c
+WHERE c.id_padre IS NULL
+  AND CAST(c.codigo AS INTEGER) > 0
+  AND CAST(c.codigo AS INTEGER) <= 3
+ORDER BY c.id_cuenta_contable;
+]]>
+	</queryString>
+	<field name="id_cuenta_contable" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id_cuenta_contable"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_cuenta_contable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cuenta_contable"/>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="cuenta_contable"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="60" uuid="b9620b95-e727-4916-8278-68e6e6144c08"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA["Empresa chingona de análisis numérico S.A de C.V\nBalance General desde el " 
++ new java.text.SimpleDateFormat("dd 'de' MMMM").format($P{DESDE}) 
++ " hasta el " 
++ new java.text.SimpleDateFormat("dd 'de' MMMM 'de' yyyy").format($P{HASTA})
++"\nCantidades expresadas en dolares"
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="60" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="10" y="0" width="100" height="30" uuid="6bf0cdd8-1081-4034-b0e7-99c631f36a7f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="10" y="30" width="545" height="30" uuid="7e7b9f59-b531-4a71-b1ec-26f0b1877309"/>
+				<subreportParameter name="IDCUENTAPADRE">
+					<subreportParameterExpression><![CDATA[$F{id_cuenta_contable}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DESDE">
+					<subreportParameterExpression><![CDATA[$P{DESDE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="HASTA">
+					<subreportParameterExpression><![CDATA[$P{HASTA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["BalanceSubReporte_subCuentas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

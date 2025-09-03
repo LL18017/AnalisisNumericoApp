@@ -34,17 +34,20 @@ import java.util.List;
     @NamedQuery(name = "TipoSaldo.findByNombre", query = "SELECT t FROM TipoSaldo t WHERE t.nombre = :nombre")})
 public class TipoSaldo implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "nombre")
+    private String nombre;
+    @OneToMany(mappedBy = "idTipoSaldo")
+    private List<Registro> registroList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_tipo_saldo")
     private Integer idTipoSaldo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "nombre")
-    private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoSaldo")
     private List<PartidaDiariaDetalle> partidaDiariaDetalleList;
 
@@ -76,13 +79,6 @@ public TipoSaldo(TipoSaldoDTO DTO) {
         this.idTipoSaldo = idTipoSaldo;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public List<PartidaDiariaDetalle> getPartidaDiariaDetalleList() {
         return partidaDiariaDetalleList;
@@ -115,6 +111,22 @@ public TipoSaldo(TipoSaldoDTO DTO) {
     @Override
     public String toString() {
         return "sv.ues.occ.analisis.numerico.AnalisisNumericoApp.entity.TipoSaldo[ idTipoSaldo=" + idTipoSaldo + " ]";
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Registro> getRegistroList() {
+        return registroList;
+    }
+
+    public void setRegistroList(List<Registro> registroList) {
+        this.registroList = registroList;
     }
     
 }
