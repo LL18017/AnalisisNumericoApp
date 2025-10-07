@@ -18,6 +18,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
+import sv.ues.occ.analisis.numerico.AnalisisNumericoApp.rest.dtos.RegistroDto;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,17 +35,21 @@ import java.util.Date;
     @NamedQuery(name = "Registro.findByFecha", query = "SELECT r FROM Registro r WHERE r.fecha = :fecha")})
 public class Registro implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "fecha")
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "saldo")
+    private Double saldo;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_registro")
     private Integer idRegistro;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
     @JoinColumn(name = "id_cuenta_contable", referencedColumnName = "id_cuenta_contable")
     @ManyToOne
     private CuentaContable idCuentaContable;
@@ -53,6 +58,13 @@ public class Registro implements Serializable {
     private TipoSaldo idTipoSaldo;
 
     public Registro() {
+    }
+ public Registro(RegistroDto dto) {
+        this.idRegistro= dto.idRegistro();
+        this.idCuentaContable=new CuentaContable(dto.idCuentaContable());
+        this.idTipoSaldo=new TipoSaldo(dto.idTipoSaldo());
+        this.saldo= dto.saldo();
+        this.fecha=dto.fecha();
     }
 
     public Registro(Integer idRegistro) {
@@ -73,13 +85,6 @@ public class Registro implements Serializable {
         this.idRegistro = idRegistro;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
 
     public CuentaContable getIdCuentaContable() {
         return idCuentaContable;
@@ -120,6 +125,22 @@ public class Registro implements Serializable {
     @Override
     public String toString() {
         return "sv.ues.occ.analisis.numerico.AnalisisNumericoApp.entity.Registro[ idRegistro=" + idRegistro + " ]";
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
     }
     
 }

@@ -113,13 +113,6 @@ public TipoSaldo(TipoSaldoDTO DTO) {
         return "sv.ues.occ.analisis.numerico.AnalisisNumericoApp.entity.TipoSaldo[ idTipoSaldo=" + idTipoSaldo + " ]";
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public List<Registro> getRegistroList() {
         return registroList;
@@ -127,6 +120,14 @@ public TipoSaldo(TipoSaldoDTO DTO) {
 
     public void setRegistroList(List<Registro> registroList) {
         this.registroList = registroList;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
 }

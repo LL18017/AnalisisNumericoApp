@@ -10,4 +10,6 @@ public record TipoSaldoDTO(
     public  TipoSaldoDTO(TipoSaldo entity){
         this(entity.getIdTipoSaldo(), entity.getNombre());
     }
+
+
 }

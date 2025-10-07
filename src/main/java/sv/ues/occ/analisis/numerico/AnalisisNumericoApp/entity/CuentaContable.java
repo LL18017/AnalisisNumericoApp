@@ -144,6 +144,15 @@ public class CuentaContable implements Serializable {
         return new CuentaContableDto(this);
     }
 
+
+    public List<Registro> getRegistroList() {
+        return registroList;
+    }
+
+    public void setRegistroList(List<Registro> registroList) {
+        this.registroList = registroList;
+    }
+
     public String getCodigo() {
         return codigo;
     }
@@ -158,14 +167,6 @@ public class CuentaContable implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public List<Registro> getRegistroList() {
-        return registroList;
-    }
-
-    public void setRegistroList(List<Registro> registroList) {
-        this.registroList = registroList;
     }
     
 }

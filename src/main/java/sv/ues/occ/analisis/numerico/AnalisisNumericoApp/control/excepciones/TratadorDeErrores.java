@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestControllerAdvice
 public class TratadorDeErrores
@@ -46,7 +48,7 @@ public class TratadorDeErrores
     public ResponseEntity<Map<String, String>> otros(Exception ex) {
         Map<String, String> error = new HashMap<>();
         error.put("error", ex.getMessage() != null ? ex.getMessage() : "Error inesperado");
-
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE,"error",ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
